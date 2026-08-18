@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LN247 What's On
 
-## Getting Started
+A portfolio demo built for an interview for the Web Programmer role at **LN247
+Television**. It's a small, single-page "what's on now" experience — a gap on
+[ln247.news/live](https://ln247.news/live/), which currently has no schedule
+or now-playing info, just a static poster grid.
 
-First, run the development server:
+Not affiliated with or endorsed by LN247 Television.
+
+## What it does
+
+- **Now Playing banner** — the current show, a pulsing LIVE badge, and time
+  remaining (or "starts in X" between shows / "off air" overnight).
+- **Today's schedule** — a vertical timeline of the day's shows, with the
+  currently-airing one highlighted.
+- **Live player** — a real HLS player (`hls.js`) driving a standard
+  `<video>` element, not a YouTube iframe embed.
+- **Mobile-first layout** — built and tested at 375px first, since LN247's
+  audience is majority mobile.
+
+## Stack
+
+- **Next.js (App Router) + TypeScript**, deployed to Vercel.
+- **Tailwind CSS v4** for mobile-first styling.
+- **Two Next.js Route Handlers** as the "backend":
+  - `GET /api/schedule` — today's shows.
+  - `GET /api/now-playing` — derives the live/upcoming/off-air state from
+    the schedule and the current time in `Africa/Lagos` (WAT).
+  - The schedule data is a static TypeScript file (`data/schedule.ts`)
+    rather than a database or a separate Django REST Framework service. The
+    handover doc explicitly allows this fallback when time is short — the
+    point of the demo is the frontend UX and the now-playing logic, not
+    backend complexity, and it keeps the whole thing a single Vercel
+    deployment.
+- **`hls.js`** for the live player, with a native-HLS fallback for Safari.
+
+## What's faked / placeholder
+
+- **Stream URL** — LN247's real HLS endpoint isn't public, so the player
+  points at a public Mux test stream
+  (`test-streams.mux.dev/x36xhzz/x36xhzz.m3u8`). This is labeled in the UI
+  ("Demo stream — not LN247's real broadcast") and here. The player still
+  has a real "stream unavailable" fallback state if the placeholder stream
+  ever fails to load.
+- **Schedule times** — LN247's actual air times aren't published anywhere
+  found. Show titles and categories are real (from the confirmed 18-show
+  TV Shows list on ln247.news), but the 12 shows and their start/end times
+  were invented for a realistic single broadcast day.
+- **Brand colors** — pulled from ln247.news's actual CSS (the site runs the
+  tagDiv "Newspaper" WordPress theme): navy `#131F49` as the primary color,
+  with a red accent for LIVE badges. Not officially confirmed as LN247's
+  brand guidelines, just what's live on their site today.
+- **Logo** — used a text wordmark ("LN247") instead of the real logo image,
+  to keep the deploy self-contained with no external asset dependencies.
+
+## Next steps (explicitly out of scope for this demo)
+
+- Admin/CMS UI for editing the schedule.
+- Multi-day schedule or calendar view.
+- User accounts, login, or push notifications.
+- Real integration with LN247's WordPress backend / actual stream URL.
+
+## Running locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Open [http://localhost:3000](http://localhost:3000).
