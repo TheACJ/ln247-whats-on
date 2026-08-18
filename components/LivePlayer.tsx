@@ -3,12 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import type Hls from "hls.js";
 
-// Demo placeholder stream — LN247's real HLS endpoint wasn't available for
-// this prototype, so we point hls.js at a public test stream instead. This
-// keeps the player technically honest (real HLS delivery via hls.js, not a
-// YouTube iframe) without depending on infrastructure we don't have access to.
-const DEMO_STREAM_URL =
-  "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8";
+// LN247's actual live HLS feed, served via CeFlix's CDN (LoveWorld's
+// streaming infrastructure). Playback still depends on that stream being up
+// and reachable from the viewer's browser (CORS, geo, etc.) — the
+// "unavailable" state below covers it if the feed can't be reached.
+const LIVE_STREAM_URL =
+  "https://vcpout-lw-wdc-01-sp.ceflixcdn.com/ln247/stream6/playlist.m3u8";
 
 type PlayerStatus = "loading" | "playing" | "unavailable";
 
@@ -28,7 +28,7 @@ export default function LivePlayer() {
 
       if (video.canPlayType("application/vnd.apple.mpegurl")) {
         // Native HLS support (Safari / iOS)
-        video.src = DEMO_STREAM_URL;
+        video.src = LIVE_STREAM_URL;
         video.addEventListener("loadedmetadata", () => {
           if (!cancelled) setStatus("playing");
         });
@@ -47,7 +47,7 @@ export default function LivePlayer() {
       }
 
       hls = new HlsLib({ enableWorker: true });
-      hls.loadSource(DEMO_STREAM_URL);
+      hls.loadSource(LIVE_STREAM_URL);
       hls.attachMedia(video);
       hls.on(HlsLib.Events.MANIFEST_PARSED, () => {
         if (!cancelled) setStatus("playing");
@@ -87,17 +87,13 @@ export default function LivePlayer() {
             <>
               <p className="text-lg font-semibold">Stream unavailable</p>
               <p className="max-w-xs text-sm text-white/70">
-                We couldn&apos;t reach the live feed right now. This is a demo
-                placeholder stream, not LN247&apos;s real broadcast.
+                We couldn&apos;t reach LN247&apos;s live feed right now.
+                Check back shortly.
               </p>
             </>
           )}
         </div>
       )}
-
-      <div className="pointer-events-none absolute left-3 top-3 rounded-full bg-black/60 px-2.5 py-1 text-[11px] font-medium text-white/80 backdrop-blur-sm">
-        Demo stream — not LN247&apos;s real broadcast
-      </div>
     </div>
   );
 }

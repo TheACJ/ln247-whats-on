@@ -36,12 +36,12 @@ Not affiliated with or endorsed by LN247 Television.
 
 ## What's faked / placeholder
 
-- **Stream URL** — LN247's real HLS endpoint isn't public, so the player
-  points at a public Mux test stream
-  (`test-streams.mux.dev/x36xhzz/x36xhzz.m3u8`). This is labeled in the UI
-  ("Demo stream — not LN247's real broadcast") and here. The player still
-  has a real "stream unavailable" fallback state if the placeholder stream
-  ever fails to load.
+- **Stream URL** — the player now points at LN247's actual live HLS feed
+  (served via CeFlix's CDN, LoveWorld's streaming infrastructure), not a
+  test stream. It's a real production endpoint the team uses, not something
+  this project stood up, so playback still depends on that feed being live
+  and reachable from the viewer's browser — the player's "stream
+  unavailable" fallback state covers it if the feed can't be reached.
 - **Schedule times** — LN247's actual air times aren't published anywhere
   found. Show titles and categories are real (from the confirmed 18-show
   TV Shows list on ln247.news), but the 12 shows and their start/end times
@@ -58,7 +58,8 @@ Not affiliated with or endorsed by LN247 Television.
 - Admin/CMS UI for editing the schedule.
 - Multi-day schedule or calendar view.
 - User accounts, login, or push notifications.
-- Real integration with LN247's WordPress backend / actual stream URL.
+- Real integration with LN247's WordPress backend (the schedule itself is
+  still static demo data; only the video feed is the real stream).
 
 ## Running locally
 
