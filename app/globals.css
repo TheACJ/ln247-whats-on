@@ -1,26 +1,47 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f4f5f7;
+  --foreground: #131f49;
+  --card: #ffffff;
+  --brand-navy: #131f49;
+  --brand-navy-dark: #0b1330;
+  --brand-red: #cf2e2e;
+  --brand-red-dark: #a51f1f;
+  --brand-grey: #ededed;
+  --brand-muted: #6b7280;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-brand-navy: var(--brand-navy);
+  --color-brand-navy-dark: var(--brand-navy-dark);
+  --color-brand-red: var(--brand-red);
+  --color-brand-red-dark: var(--brand-red-dark);
+  --color-brand-grey: var(--brand-grey);
+  --color-brand-muted: var(--brand-muted);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+@keyframes live-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+.live-dot {
+  animation: live-pulse 1.6s ease-in-out infinite;
 }
