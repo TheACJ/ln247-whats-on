@@ -50,8 +50,14 @@ Not affiliated with or endorsed by LN247 Television.
   tagDiv "Newspaper" WordPress theme): navy `#131F49` as the primary color,
   with a red accent for LIVE badges. Not officially confirmed as LN247's
   brand guidelines, just what's live on their site today.
-- **Logo** — used a text wordmark ("LN247") instead of the real logo image,
-  to keep the deploy self-contained with no external asset dependencies.
+- **Logo** — recreated as a styled wordmark ("LN" white, "247" amber)
+  instead of shipping a raster file. LN247 hosts two logo PNGs, but neither
+  matches this colorway (their site header uses amber-LN/black-247 on
+  white; the dark "reverse" asset has an outlined "247"). `#FFA722` was
+  sampled directly from LN247's own Play Store icon, which uses the same
+  wordmark shape with the two colors swapped — so it's their real brand
+  color, just applied to match the dark header here instead of a
+  mismatched file.
 
 ## Next steps (explicitly out of scope for this demo)
 

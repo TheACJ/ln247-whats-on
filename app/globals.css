@@ -8,6 +8,7 @@
   --brand-navy-dark: #0b1330;
   --brand-red: #cf2e2e;
   --brand-red-dark: #a51f1f;
+  --brand-amber: #ffa722;
   --brand-grey: #ededed;
   --brand-muted: #6b7280;
 }
@@ -20,6 +21,7 @@
   --color-brand-navy-dark: var(--brand-navy-dark);
   --color-brand-red: var(--brand-red);
   --color-brand-red-dark: var(--brand-red-dark);
+  --color-brand-amber: var(--brand-amber);
   --color-brand-grey: var(--brand-grey);
   --color-brand-muted: var(--brand-muted);
   --font-sans: var(--font-geist-sans);

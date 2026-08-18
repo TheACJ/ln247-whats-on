@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import LogoMark from "@/components/LogoMark";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -36,9 +37,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <header className="bg-brand-navy-dark">
           <div className="mx-auto flex w-full max-w-2xl items-center justify-between px-4 py-3.5 sm:px-6">
             <a href="https://ln247.news/" target="_blank" rel="noopener noreferrer" className="flex items-baseline gap-2">
-              <span className="text-lg font-extrabold tracking-tight text-white">
-                LN<span className="text-brand-red">247</span>
-              </span>
+              <LogoMark className="text-lg" />
               <span className="hidden text-[11px] font-medium uppercase tracking-widest text-white/50 sm:inline">
                 What&apos;s On
               </span>
